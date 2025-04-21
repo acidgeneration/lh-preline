@@ -43,20 +43,20 @@ export default function GlossaryCategoryPage() {
 
   return (
     <div className="bg-white">
-       {/* Top-Bar (optional, can be in layout) */}
+       {/* Top-Bar */}
       <div className="py-2 px-4 flex justify-between items-center border-b">
         <a href="/glossary" aria-label="Glossary Home">
           <span className="text-xl font-semibold text-gray-800">Glossary</span>
         </a>
-        {/* Mobile Sidebar Toggle - You might need JS for this if not using Preline's overlay directly */}
+        {/* Mobile Sidebar Toggle Button */}
         <div className="lg:hidden">
-          <button type="button" className="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-start bg-gray-800 border border-gray-800 text-white text-sm font-medium rounded-lg shadow-sm align-middle hover:bg-gray-900 focus:outline-none focus:bg-gray-900" data-hs-overlay="#glossary-sidebar">
+          <button type="button" className="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-start bg-gray-800 border border-gray-800 text-white text-sm font-medium rounded-lg shadow-sm align-middle hover:bg-gray-900 focus:outline-none focus:bg-gray-900" data-hs-overlay="#glossary-sidebar-mobile">
             Categories
           </button>
         </div>
       </div>
 
-      {/* Breadcrumb - HSBreadcrumb */}
+      {/* Breadcrumb */}
       <div className="max-w-[85rem] px-4 sm:px-6 lg:px-8 py-4 mx-auto">
         <ol className="flex items-center whitespace-nowrap">
           <li className="inline-flex items-center">
@@ -71,50 +71,75 @@ export default function GlossaryCategoryPage() {
         </ol>
       </div>
 
-      {/* Main Content Area with Sidebar */}
+      {/* Main Content Area with Sidebar Layout */}
       <div className="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto">
-        <div className="lg:flex lg:gap-8">
+         <div className="lg:flex lg:gap-8">
 
-           {/* Refactored Sidebar based on template */}
-           {/* Note: The template used hs-overlay for mobile. This implementation keeps it simple for now. */}
-           {/* You might need Preline's JS or custom JS for the mobile overlay behaviour */}
-          <aside
-            id="glossary-sidebar"
-            className="lg:block lg:w-64 lg:shrink-0 lg:py-5 lg:space-y-8
-                       hs-overlay [--auto-close:lg] lg:translate-x-0 lg:end-auto lg:bottom-0 w-64
-                       hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform
-                       h-full hidden fixed top-0 start-0 bottom-0 z-60 bg-white border-e border-gray-200"
-          >
-             {/* Optional Header from template - removed for simplicity, could be added back */}
-             <nav className="p-4 h-full overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300">
-              <ul className="space-y-1">
-                 {glossaryCategories.map((cat) => {
-                    const isActive = currentCategorySlug === cat.slug;
-                    return (
-                      <li key={cat.slug}>
-                        <a
-                          className={`flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg focus:outline-none focus:bg-gray-100 ${isActive ? 'bg-gray-100 text-gray-800' : 'text-gray-700 hover:bg-gray-100'}`}
-                          href={`/glossary/${cat.slug}`}
-                        >
-                          {cat.icon} {/* Render the icon component */}
-                          {cat.name}
-                        </a>
-                      </li>
-                    );
-                 })}
-               </ul>
-            </nav>
-          </aside>
+           {/* Sidebar for Categories (desktop) */}
+           <aside className="hidden lg:block lg:w-64 shrink-0 py-5 space-y-8 lg:sticky lg:top-20 self-start">
+             <nav>
+              <h3 className="text-lg font-semibold text-gray-800 mb-3">Categories</h3>
+               <ul className="space-y-1">
+                  {glossaryCategories.map((cat) => {
+                     const isActive = currentCategorySlug === cat.slug;
+                     return (
+                       <li key={cat.slug}>
+                         <a
+                           className={`flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg focus:outline-none focus:bg-gray-100 ${isActive ? 'bg-gray-100 text-blue-600 font-medium' : 'text-gray-700 hover:bg-gray-100'}`}
+                           href={`/glossary/${cat.slug}`}
+                         >
+                           {cat.icon} {/* Render the icon component */}
+                           {cat.name}
+                         </a>
+                       </li>
+                     );
+                  })}
+                </ul>
+             </nav>
+           </aside>
 
-          {/* Main Content */}
-          <main className="flex-grow py-5">
-            {/* Hero Category - HSCard hero */}
+           {/* Mobile Sidebar (using hs-overlay) */}
+            <aside
+              id="glossary-sidebar-mobile"
+              className="hs-overlay [--auto-close:lg] hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform hidden fixed top-0 start-0 bottom-0 z-[60] w-64 bg-white border-e border-gray-200 pt-7 pb-10 overflow-y-auto lg:hidden"
+            >
+              <div className="px-6 flex justify-between items-center border-b pb-3 mb-3">
+                 <a className="flex-none text-xl font-semibold" href="/glossary" aria-label="Glossary">Glossary</a>
+                 {/* Close button for mobile sidebar */}
+                 <button type="button" className="hs-overlay-close size-7 flex justify-center items-center text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none">
+                   <span className="sr-only">Close modal</span>
+                   <svg className="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                 </button>
+              </div>
+              <nav className="p-6 w-full flex flex-col flex-wrap">
+                <ul className="space-y-1.5">
+                  {glossaryCategories.map((cat) => {
+                      const isActive = currentCategorySlug === cat.slug;
+                      return (
+                        <li key={cat.slug}>
+                          <a
+                            className={`flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg focus:outline-none focus:bg-gray-100 ${isActive ? 'bg-gray-100 text-blue-600 font-medium' : 'text-gray-700 hover:bg-gray-100'}`}
+                            href={`/glossary/${cat.slug}`}
+                          >
+                            {cat.icon} {/* Render the icon component */}
+                            {cat.name}
+                          </a>
+                        </li>
+                      );
+                   })}
+                </ul>
+              </nav>
+           </aside>
+
+           {/* Main Content Area */}
+           <main className="flex-grow py-5">
+             {/* Hero Category */}
             <div className="mb-10">
               <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-2">{categoryTitle}</h1>
               <p className="text-lg text-gray-600">Description for the {categoryTitle} category. Learn more about terms in this area.</p>
             </div>
 
-            {/* Term Grid - HSCard */}
+             {/* Term Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
               {terms.map((term) => (
                  <a
@@ -132,7 +157,7 @@ export default function GlossaryCategoryPage() {
               ))}
             </div>
 
-            {/* Pagination - HSPagination */}
+             {/* Pagination */}
             <nav className="flex justify-center items-center space-x-2">
               <a className="text-gray-500 hover:text-blue-600 p-4 inline-flex items-center gap-2 rounded-md" href="#">
                 <span aria-hidden="true">«</span>
@@ -146,11 +171,11 @@ export default function GlossaryCategoryPage() {
                 <span aria-hidden="true">»</span>
               </a>
             </nav>
-          </main>
-        </div>
-      </div>
+           </main>
+         </div> {/* Close lg:flex */}
+      </div> {/* Close max-w container */} 
 
-      {/* Footer (can be in layout) */}
+      {/* Footer */}
        <footer className="mt-auto w-full max-w-[85rem] py-10 px-4 sm:px-6 lg:px-8 mx-auto">
         <div className="text-center">
            <div>
