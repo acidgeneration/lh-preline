@@ -95,8 +95,8 @@ export default function GlossaryTermPage() {
               <span>Updated: July 1, 2024</span> {/* Placeholder */}
             </div>
 
-            {/* Article Content - Preline Typography */}
-            <article className="prose prose-lg max-w-none prose-blue prose-img:rounded-xl prose-a:text-blue-600 hover:prose-a:text-blue-500">
+            {/* Article Content - Restored prose, added text-gray-800 */}
+            <article className="prose prose-lg max-w-none text-gray-800 prose-a:text-blue-600 hover:prose-a:text-blue-500 prose-img:rounded-xl">
                 <p id="introduction">This is the introduction to the term <strong>{termTitle}</strong> within the context of LinkedIn lead generation. It explains the core concept and its importance in finding and engaging potential clients on the platform.</p>
                 <p>Understanding {termTitle} is crucial for anyone looking to leverage LinkedIn for sales or marketing. This section will delve deeper into its nuances.</p>
                 <h2 id="key-concepts">Key Concepts Related to {termTitle}</h2>
@@ -106,14 +106,14 @@ export default function GlossaryTermPage() {
                   <li>LinkedIn Search Filters (e.g., Title, Industry, Location)</li>
                   <li>Connection Degrees (1st, 2nd, 3rd+)</li>
                 </ul>
-                <blockquote className="not-prose border-s-4 border-gray-300 p-4 bg-gray-50">
-                  <p className="text-gray-800">"Effective lead generation on LinkedIn starts with a clear understanding of who you're trying to reach."</p>
+                <blockquote className="border-s-4 border-gray-300 p-4 bg-gray-50 my-6 not-prose">
+                  <p className="text-gray-800 italic">"Effective lead generation on LinkedIn starts with a clear understanding of who you're trying to reach."</p>
                 </blockquote>
                  <h2 id="usage-examples">Usage Examples of {termTitle}</h2>
                  <p>Here are a few scenarios illustrating how {termTitle} is applied in practice for LinkedIn lead generation: searching for specific job titles in target industries, sending personalized connection requests, or automating outreach sequences.</p>
                  <figure>
                    <img className="w-full object-cover rounded-xl" src="/assets/placeholder.jpg" alt="Diagram or screenshot illustrating the concept" />
-                   <figcaption>Visual example related to {termTitle}</figcaption>
+                   <figcaption className="text-center text-sm text-gray-500 mt-2">Visual example related to {termTitle}</figcaption>
                  </figure>
                  <h2 id="best-practices">Best Practices</h2>
                  <p>To maximize results and avoid common pitfalls when using {termTitle}, consider these best practices: personalize your outreach, focus on building relationships rather than just selling, respect LinkedIn's usage limits, and track your key metrics.</p>
